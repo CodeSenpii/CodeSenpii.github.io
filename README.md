@@ -22,6 +22,12 @@ Below is a vedio of the code review:
 - [Code Review](https://www.youtube.com/embed/S5SBJUDnSNw)
 
 
+## Design & Engineering:
+
+- flow chart
+- use case diagram
+
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
