@@ -24,8 +24,8 @@ Below is a vedio of the code review:
 
 ## Design & Engineering:
 
-- flow chart
-- use case diagram
+- ![flow chart]()
+- ![use case diagram]()
 
 
 ### Markdown
