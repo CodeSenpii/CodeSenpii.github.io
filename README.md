@@ -17,8 +17,9 @@ This application is designed to return the train schedule for New Jersey Transit
 Trip planning is a bit more complicated as it requres the user to input some information, nameley trip starting point and trip ending point no train staion name is neccessary just the town name and the program will workout closest stations possible including all connections to complete the trip.
 
 ## Code Review:
-Below is a vedio of the code review.
--[!Code Review](<iframe width="560" height="315" src="https://www.youtube.com/embed/S5SBJUDnSNw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>)
+Below is a vedio of the code review:
+
+- [Code Review](https://www.youtube.com/embed/S5SBJUDnSNw)
 
 
 ### Markdown
