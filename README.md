@@ -26,9 +26,8 @@ Below is a vedio of the code review:
 ### Flow Chart:
 ![flow chart]()
 ### Use Case Diagram:
-```
 ![use case diagram](use_case.png)
-```
+
 
 
 ### Markdown
