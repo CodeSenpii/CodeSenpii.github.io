@@ -6,11 +6,11 @@ This project is a combination the following:
 - Database
 - Data Structures and Algorithms 
 
-#Project Overview:
+# Project Overview:
 
 This project is in two parts. The first part is the database managment system (DBMS) for a NoSQL database and the second part is the user interface (UI). The DBMS impliments CRUD functionallity for Inserting, deleting, update, and searching of the database. The U.I. interfaces with the user and displays information to the screen.
 
-#User Interface discription:
+# User Interface discription:
 
 This application is designed to return the train schedule for New Jersey Transit train system from the database to the user. The goal is that the entire process happens automatically using the GPS location of the user. Once the application is opened the GPS location is grabed from the user's device. The GPS coordinates is used to determine the closest train station to the user with the next 4 departure times going in each direction; this is the top use case for this application. The second use case will be trip planning.
 
