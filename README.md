@@ -1,7 +1,23 @@
-## Welcome to My GitHub Pages
-## My Name is Kieyn Parks
+### Project-1
+## By: Kieyn Parks
 
-In this site you will find some of the project I have completed and some I continue to work on.
+This project is a combination the following:
+- Engineering and Design
+- Database
+- Data Structures and Algorithms 
+
+#Project Overview:
+
+This project is in two parts. The first part is the database managment system (DBMS) for a NoSQL database and the second part is the user interface (UI). The DBMS impliments CRUD functionallity for Inserting, deleting, update, and searching of the database. The U.I. interfaces with the user and displays information to the screen.
+
+#User Interface discription:
+
+This application is designed to return the train schedule for New Jersey Transit train system from the database to the user. The goal is that the entire process happens automatically using the GPS location of the user. Once the application is opened the GPS location is grabed from the user's device. The GPS coordinates is used to determine the closest train station to the user with the next 4 departure times going in each direction; this is the top use case for this application. The second use case will be trip planning.
+
+Trip planning is a bit more complicated as it requres the user to input some information, nameley trip starting point and trip ending point no train staion name is neccessary just the town name and the program will workout closest stations possible including all connections to complete the trip.
+
+## Code Review:
+Below is a vedio of the code review.
 
 
 ### Markdown
