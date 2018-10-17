@@ -19,7 +19,7 @@ Trip planning is a bit more complicated as it requres the user to input some inf
 ## Code Review:
 Below is a vedio of the code review:
 
-- [Code Review](https://www.youtube.com/embed/S5SBJUDnSNw)
+[Code Review](https://www.youtube.com/embed/S5SBJUDnSNw)
 
 
 ## Design & Engineering:
@@ -28,7 +28,7 @@ Below is a vedio of the code review:
 #### Use Case Diagram:
 ![](use_case.png)
 
-### [Design and Engineering Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/Design_Engineering.docx)
+### [LINK - Design and Engineering Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/Design_Engineering.docx)
 
 ### Markdown
 
