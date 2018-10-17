@@ -1,5 +1,7 @@
 # Project-1: automatically display NJTRANSIT train departure times.
-## By: Kieyn Parks
+## Author: Kieyn Parks
+## Language: Python
+## Database: MongoDB (NoSQL)
 
 This project is a combination the following:
 - Engineering and Design
@@ -29,6 +31,10 @@ Below is a vedio of the code review:
 ![](use_case.png)
 
 ### [LINK - Design and Engineering Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/Design_Engineering.docx)
+
+## Algorithm and Data Structure:
+
+
 
 ### Markdown
 
