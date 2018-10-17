@@ -63,6 +63,8 @@ time_map_local = {'00':0, '01':1, '02':2, '03':3, '04':4, '05':5, '06':6, '07':7
                   '18':18, '19':19, '20':20, '21':21, '22':22, '23':23}
 
 ```
+### [LINK - Algorithm and Data Structure Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/Narrative_ADS.docx)
+
 
 ### Markdown
 
