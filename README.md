@@ -65,6 +65,189 @@ time_map_local = {'00':0, '01':1, '02':2, '03':3, '04':4, '05':5, '06':6, '07':7
 ```
 ### [LINK - Algorithm and Data Structure Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/Narrative_ADS.docx)
 
+## Database:
+The database used in this project is a MongoDB NoSQL. A Database managment system application written in python is used to Insert, Update, Delete and Search the database (njtransit).
+# NJTRANSIT DATABASE MANAGMENT SYSTEM
+```
+#------------------------------------------------------------------------------------
+'''
+*  This program demonstrates the use of CRUD functions that insert, update and delete
+*  a document on the Mongodb NoSql database
+'''
+#-----------------------------------------------------------------------------------
+
+from pymongo import MongoClient
+import json
+from bson import json_util
+import datetime
+from collections import OrderedDict
+
+#the database is "market" and the collection is "stocks"
+connection = MongoClient('localhost', 27017)
+db = connection['njtransit']
+collection = db['schedule']
+
+fields = ["line", "station_name", "station_id", "coordinates", "departure_time"]
+
+# collect the data from the user
+def createDocumnet():
+    
+    print("****INSERT DOCUMENT****")
+    values = [] # hold the values for the key:value pairs
+    value = ""
+    lat = 0.0   # laitude
+    long = 0.0   # longitude
+        
+    #get the keys from the key array 
+        
+    for key in fields:
+        # read  the values from user keyboard and append to values array
+        # all values captured as strings
+        if key != 'coordinates' and key != 'departure_time':                                
+            value = input('Enter ' + key + ': ') 
+            values.append(value)
+        elif key == 'coordinates':
+            lat = input('Enter latitude' + ': ') 
+            long = input('Enter longitude' + ': ')                
+        elif key == "departure_time":
+            times_nb = ""
+            times_sb = ""
+            print("\nEnter North-Bound or South-Bound times when prompted **leave a space between times**")
+            print("\n*******************IMPORTANT NOTICE: DATA ENTRY FORMAT*******************")
+            print("\nData Entry Example: 9:13am 9:20am 10:30am... hit -ENTER- key when done!")
+            print("\n********************************END**************************************")
+                
+            times_nb = input("\nEnter **NORTH-BOUND** times! Press ENTER key to submit:")
+            times_sb = input("Enter **SOUTH-BOUND** times! Press ENTER key to submit:")
+                
+            print("This is what you entered!")
+            print("North-Bound: " + times_nb, "\nSouth-Bound: " + times_sb)
+                
+            # TODO get a confirmation that the info is good or bad
+                
+            times_nb = times_nb.split(' ')
+            times_sb = times_sb.split(' ')
+            
+    document = {}
+    document["line"] = values[0]
+    document["station_name"] = values[1]
+    document["station_id"] = values[2]
+    document["coordinates"] = {"latitude" : lat, "longitude" : long}
+    document["departure_time"] = {"north_bound" : times_nb, "south_bound" : times_sb}
+            
+    return document        
+    
+#*******************insert a document ******************************
+def insertDocument(document):
+    try:
+        result = collection.insert_one(document)
+        print("Data insert successfull")
+    except ValidationError as ve:
+        abort(400, str(ve))
+        print("Data insert fail")
+    return result # return TODO
+
+#delete a document
+def deleteDocument():
+    print("WARNING! You are about to delete a document!")
+    station_id = input("Enter station id: ")
+    doc_delete = {"station_id" : station_id}
+    try:
+        doc = collection.delete_one(doc_delete)
+        if doc.delete_count > 0:
+            print("document deleted")
+        else:
+            print("No documents deleted!")
+                
+    except InvalidOperation as iv:
+        print("ERROR: " + iv)
+    pass
+
+# update docments in the collection
+def updateDocument():
+    station_id = input("Enter station id: ")
+    search = {"station_id" : station_id}
+    
+    field = input("Enetr field to update: ")
+    value = input("Enter value: ")
+    
+    newValue = {"$set" : {field : value}}
+    
+    try:
+        update = collection.update_one(search, newValue)
+        print("update completed")
+        
+    except:
+        print("update failed!")
+        
+# Search database for station
+def searchDocument():        
+    exit = False
+    while not exit:
+        
+        try:
+            menu = "1) Find by station name. \n2) Find by station id."
+            print(menu)
+            option = int(input("Option: "))
+            if option == 1:
+                station = input('Enter station name: ')
+                doc = collection.find_one({"station_name" : station})
+                exit = True
+                return doc
+            elif option == 2:
+                station_id = input('Enter station id: ')
+                doc = collection.find_one({"station_id" : station_id})
+                exit = True
+                return doc
+            else:
+                doc = "No Search String Entered!"                
+                return doc
+        except:
+            
+            print('Error occured\n')
+            pass
+
+# program starts here
+def main():
+    #menu options
+    menu = "Choose and operation. \n1) Insert Documents. \n2) Search Documents.\n3) Delete a Document."
+    print(menu)
+    option = "0"
+    
+    #parse option input should be integer only
+    while option.isdigit():
+        try:
+            option = int(input("Choose Option (1-4): "))
+            break;
+        except:
+            print("Invalid selection!")
+
+    #creating the document   
+    if option == 1:
+        document = createDocumnet()
+        #print(insertDocument(document))
+        print(document)
+            
+    elif option == 2:
+        document = searchDocument()
+        print(document)
+        
+    elif option == 3:
+        deleteDocument()
+        
+    elif option == 4:
+        updateDocument()       
+    else:
+        pass
+                
+if __name__ == '__main__':
+           main()
+
+```
+### [LINK - Database Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/DBS.docx)
+
+
+
 
 ### Markdown
 
