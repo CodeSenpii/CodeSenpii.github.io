@@ -1,4 +1,4 @@
-# Project-1
+# Project-1: automatically display NJTRANSIT train departure times
 ## By: Kieyn Parks
 
 This project is a combination the following:
@@ -23,7 +23,7 @@ Below is a vedio of the code review:
 
 
 ## Design & Engineering:
-#### Flow Chart:
+#### Flow Chart: use case 1.
 ![](flow_chart.png)
 #### Use Case Diagram:
 ![](use_case.png)
