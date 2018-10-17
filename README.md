@@ -28,7 +28,7 @@ Below is a vedio of the code review:
 #### Use Case Diagram:
 ![](use_case.png)
 
-
+### [Design and Engineering Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/Design_Engineering.docx)
 
 ### Markdown
 
