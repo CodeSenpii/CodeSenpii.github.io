@@ -39,7 +39,7 @@ Python offers sevral data structures.
 - Accosiative Array/ Dictionary / Maps
 - Tuples
 
-The main data structure used in this programs is a **list of tuples** This contains the the name of the stations, the station IDs and the latitude and Longitude coordinates of each  Train station. Keeping a data structure with this information
+The main data structure used in this programs is a **list of tuples** This contains the the name of the stations, the station IDs and the latitude and Longitude coordinates of each train station. Train station names and location hardly ever changes so keeping a data structure with this information embedded in the software save on processing time and database queries.
 
 **Example of the list of tuples.**
 ```
