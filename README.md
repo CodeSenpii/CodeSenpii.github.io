@@ -54,9 +54,9 @@ jersey_coast_line2 = [('Aberdeen Matawan Station', 'AM',  [40.420161,-74.223702]
 ('Long Branch Station','LB', [40.297145,-73.988331]), ('Woodbridge Station','WB', [40.55661,-74.27775]), ('EWR Newark Airport Station','NA', [40.704417,-74.190714])]
 ```
 Another data structure used in this project is **Python Dictionary.**
-
-**Example of python Dictionary**
 This dictionary is used to convert 2 digit military time (type: "text") to  military (type: Integer)
+
+**Example of python Dictionary.**
 ```
 time_map_local = {'00':0, '01':1, '02':2, '03':3, '04':4, '05':5, '06':6, '07':7, '08':8,
                   '09':9, '10':10, '11':11, '12':12, '13':13, '14':14, '15':15, '16':16, '17':17,
