@@ -63,6 +63,388 @@ time_map_local = {'00':0, '01':1, '02':2, '03':3, '04':4, '05':5, '06':6, '07':7
                   '18':18, '19':19, '20':20, '21':21, '22':22, '23':23}
 
 ```
+## USER INTERFACE APPLICATION
+```
+'''
+ This program will get the closest tain station to the user and the depature time of the next train
+Haversine Fomula - is used To calculate great-circle distance using latitude and longitude in decimal format
+This formula does not take into account the non-spheriodal shape of the earth and may overshoote
+or undershoote in certain circumstances but is a good "AS-THE-CROW-FLIES" short distance estimator (+- 0.5%) which 
+should still be usefull for our purposes.
+
+'''
+
+from pymongo import MongoClient
+import json
+from bson import json_util
+import math
+import time
+
+#the database is "market" and the collection is "stocks"
+connection = MongoClient('localhost', 27017)
+db = connection['njtransit']
+collection = db['schedule']
+
+R = 3961 # radius of the earth in miles
+
+# this is the facilitate the conversion of 24H military time to conventional time
+
+
+''' The jersey coast train line array. the layout is station name followed 
+by station coordinates
+'''
+
+jersey_coast_line1 = ['Aberdeen Matawan Station', 'AM',  [40.420161,-74.223702], 'Allenhurst Station','AH', [40.237659,-74.006769], 'Asbury Park Station',
+'AP', [40.215359,-74.014782],  'Avenel Station','AV', [40.577620,-74.277530],  'Bay Head Station','BH', [40.077178,-74.046201],
+'Belmar Station','BS', [40.180590,-74.027301],  'Bradley Beach Station','BB', [40.203753,-74.018891], 'Elberon Station','EL',[40.265292,-73.997617],
+'Elizabeth Station','EZ', [40.667859,-74.215171], 'Hazlet Station','HZ', [40.415385,-74.190393],  'Little Silver Station','LS', [40.326715,-74.041054],
+'Manasquan Station','SQ', [40.120573,-74.047685], 'Middletown New Jersey Station','MI', [40.389780,-74.116131], 'Monmouth Park Station','MK', [40.313427,-74.015172],
+'New York Penn Station','NY', [40.750051,-73.992358], 'Newark Penn Station','NP', [40.734223,-74.164550], 'Perth Amboy Station','PE', [40.509398,-74.273752],
+'Point Pleasant Beach Station','PP', [40.092718,-74.048191], 'Red Bank Station','RB', [40.348284,-74.074535], 'Secaucus Junction Station','SE', [40.761190,-74.075821],
+'South Amboy Station','CH', [40.48431,-74.28014], 'Spring Lake Station','LA', [40.150559,-74.035481], 'Linden Station','LI', [40.629487,-74.251772],
+'Long Branch Station','LB', [40.297145,-73.988331], 'Woodbridge Station','WB', [40.55661,-74.27775], 'EWR Newark Airport Station','NA', [40.704417,-74.190714]]
+
+jersey_coast_line2 = [('Aberdeen Matawan Station', 'AM',  [40.420161,-74.223702]), ('Allenhurst Station','AH', [40.237659,-74.006769]), ('Asbury Park Station',
+'AP', [40.215359,-74.014782]),  ('Avenel Station','AV', [40.577620,-74.277530]),('Bay Head Station','BH', [40.077178,-74.046201]),
+('Belmar Station','BS', [40.180590,-74.027301]),  ('Bradley Beach Station','BB', [40.203753,-74.018891]), ('Elberon Station','EL',[40.265292,-73.997617]),
+('Elizabeth Station','EZ', [40.667859,-74.215171]), ('Hazlet Station','HZ', [40.415385,-74.190393]), ('Little Silver Station','LS', [40.326715,-74.041054]),
+('Manasquan Station','SQ', [40.120573,-74.047685]), ('Middletown New Jersey Station','MI', [40.389780,-74.116131]), ('Monmouth Park Station','MK', [40.313427,-74.015172]),
+('New York Penn Station','NY', [40.750051,-73.992358]), ('Newark Penn Station','NP', [40.734223,-74.164550]), ('Perth Amboy Station','PE', [40.509398,-74.273752]),
+('Point Pleasant Beach Station','PP', [40.092718,-74.048191]), ('Red Bank Station','RB', [40.348284,-74.074535]), ('Secaucus Junction Station','SE', [40.761190,-74.075821]),
+('South Amboy Station','CH', [40.48431,-74.28014]), ('Spring Lake Station','LA', [40.150559,-74.035481]), ('Linden Station','LI', [40.629487,-74.251772]),
+('Long Branch Station','LB', [40.297145,-73.988331]), ('Woodbridge Station','WB', [40.55661,-74.27775]), ('EWR Newark Airport Station','NA', [40.704417,-74.190714])]
+
+time_map_local = {'00':0, '01':1, '02':2, '03':3, '04':4, '05':5, '06':6, '07':7, '08':8,
+                  '09':9, '10':10, '11':11, '12':12, '13':13, '14':14, '15':15, '16':16, '17':17,
+                  '18':18, '19':19, '20':20, '21':21, '22':22, '23':23}
+    
+time_map_departure_am = {"12":0,"1":1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8,
+                         "9":9, "10":10, "11":11}
+    
+time_map_departure_pm = {"12":12, "1":13, "2":14, "15":15, "4":16, "5":17, "6":18,
+                         "7":19, "8":20, "9":21, "10":22, "11":23}
+
+# calculating distance
+def calculateDistance2(lat1, lon1):
+    coords = []
+    station_name = ''
+    
+    distance_information = []    
+    
+    
+    a = 0.0
+    c = 0.0
+    d = 0.0
+    
+    for sName, sId, sCoords in jersey_coast_line2:
+        
+        coords = sCoords
+        station_name = sName
+        station_id = sId
+            
+            
+        # print(coords)
+        dlon = math.radians(lon1 - coords[1]) # - lon1 
+        dlat = math.radians(lat1 - coords[0]) #- lat1 
+            
+        rlat = math.radians(coords[0])
+            
+            
+        a = (math.sin(dlat/2))**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(coords[0])) * (math.sin(dlon/2))**2 
+        c = 2 * math.atan2( math.sqrt(a), math.sqrt(1-a) ) 
+        d = math.ceil(R * c)  # distance (where R is the radius of the Earth)
+            
+        distance_information.append((station_name, station_id, d)) # convert to information sets
+                   
+    return distance_information
+
+def calculateDistance(lat1, lon1):
+    coords = []
+    station = ''
+    
+    distance_information = []    
+    
+    
+    a = 0.0
+    c = 0.0
+    d = 0.0
+    
+    for index in range(len(jersey_coast_line1)):
+        
+        if index % 3 == 0:
+            coords = jersey_coast_line1[index+2]
+            station = jersey_coast_line1[index]
+            station_id = jersey_coast_line1[index+1]
+            
+            
+           # print(coords)
+            dlon = math.radians(lon1 - coords[1]) # - lon1 
+            dlat = math.radians(lat1 - coords[0]) #- lat1 
+            
+            rlat = math.radians(coords[0])
+            
+            
+            a = (math.sin(dlat/2))**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(coords[0])) * (math.sin(dlon/2))**2 
+            c = 2 * math.atan2( math.sqrt(a), math.sqrt(1-a) ) 
+            d = math.ceil(R * c)  # (where R is the radius of the Earth)
+            
+            distance_information.append((station, station_id, d)) # convert to information sets
+                     
+            
+        else:
+            continue
+            
+    return distance_information
+            
+            
+def closestStation(info):
+    closest = ''
+    dist = 0
+    station = ''
+    station_id = ''
+    
+    for name, sid, distance in info:
+        
+        if dist == 0:
+            dist = distance
+            station = name
+            station_id = sid
+        else:
+            if dist > distance:
+                dist = distance
+                station = name
+                station_id = sid
+                
+    print(station, dist, station_id)
+        
+    return station_id
+
+    
+def findDocument(value):
+    try:
+        key_value = {"station_id" : value}        
+        doc = collection.find_one(key_value)
+        return doc
+       
+    except:
+        print('Error occured')
+        
+        
+def getDepartureTimesNB(document):
+    
+    ''' 
+    * This method attemps to deal with the inconsistencies in the time formats. The time formats in the database
+    * is of the form "1:23am" or "T:2:34pm" where T is a special symbal that indicates additional information about this train 
+    * the user needs to be notified of. The device to is in military form "00:20" in ordr to compare the times the units must 
+    * be standardized.
+    '''  
+    PM = False
+    AM = False
+    tHour = ''
+    tMin = ''
+    departure_times_nb = []
+    
+    local_time_h = 0 # hour time on device
+    north_bound = document["departure_time"]["north_bound"] 
+  
+    #parse local time
+    date = time.asctime()      
+    day, month, day_of_month, ttime, year = date.split()
+    hour, minute, seconds = ttime.split(':')
+    
+    # millitary time to standard time
+    if hour == '00':
+        AM = True
+        local_time_h = time_map_local[hour]   #  set to 0?     
+    elif int(hour) <= 11:
+        AM = True
+        local_time_h =time_map_local[hour]
+          
+    else: 
+        PM = True
+        local_time_h = time_map_local[hour] # convert  military time to statndard time
+        print('hour:', local_time_h)
+    
+    # parse departure times
+    for dp in north_bound:       
+        
+        if AM == True:
+            if 'am' in dp:
+                remove_am_from_time = dp[0:-2]
+                dTime = remove_am_from_time.split(':')
+                #This needs to be looked at ****************what if hour is 12 handle seperatle
+                
+                if time_map_departure_am[dTime[-2]] == 0:
+                    dTime_h = 0
+                else:
+                    dTime_h = time_map_departure_am[dTime[-2]] # depature time hour                     
+         
+                dTime_m = dTime[-1] # departure time minute
+                                
+                try:
+                    dTime_special_notice = dTime[-3] # some times may have a special value in index 0
+                except:
+                    pass
+                
+                if local_time_h <= dTime_h and (int(minute) < int(dTime_m)):
+                    departure_times_nb.append(dp)
+                
+        elif PM == True:
+            if 'pm' in dp:
+                remove_pm_from_time = dp[0:-2]
+                dTime = remove_pm_from_time.split(':') # departure time list
+                
+                dTime_h = time_map_departure_pm[dTime[-2]] # depature time hour 
+                dTime_m = dTime[-1] # departure time minute
+                
+                print(dTime_h, dTime_m)
+                
+                try:
+                    dTime_special_notice = dTime[-3] # some times may have a special value in index 0
+                except:
+                    pass
+                        
+                
+                # This needs to be looked at ******************* what is time ism 12
+                if local_time_h <= dTime_h and int(minute) < int(dTime_m):
+                    
+                    departure_times_nb.append(dp)
+                
+       
+       # if int(mh) == int(dTime[0]) and int(minute) < int(dTime[1]):
+            
+            #departure_times_nb.append(dp)
+    return departure_times_nb
+
+# south bound depature times
+def getDepartureTimesSB(document):
+    
+    ''' 
+    * This method attemps to address  the inconsistencies in the time formats. The time formats in the database
+    * is of the form "1:23am" or "T:2:34pm" where T is a special symbal that indicates additional information about this train 
+    * the user needs to be notified of. The device to is in military form "00:20" in ordr to compare the times the units must 
+    * be standardized.
+    '''
+   
+    PM = False
+    AM = False
+    tHour = ''
+    tMin = ''
+    departure_times_sb = []
+    
+    local_time_h = 0 # hour time on device
+     
+    south_bound = document["departure_time"]["south_bound"] 
+    
+    #parse local time
+    date = time.asctime()
+        
+    day, month, day_of_month, ttime, year = date.split()
+    hour, minute, seconds = ttime.split(':')
+   
+    # millitary time to standard time
+    if hour == '00':
+        AM = True
+        local_time_h = time_map_local[hour]   #  set to 0?     
+    elif int(hour) <= 11:
+        AM = True
+        local_time_h =time_map_local[hour]     
+    else: 
+        PM = True
+        local_time_h = time_map_local[hour] # convert  military time to statndard time
+        print('hour:', local_time_h)
+    
+    # parse departure times
+    for dp in south_bound:       
+        
+        if AM == True:
+            if 'am' in dp:
+                remove_am_from_time = dp[0:-2]
+                dTime = remove_am_from_time.split(':')
+                #This needs to be looked at ****************what if hour is 12 handle seperatle
+             
+                if time_map_departure_am[dTime[-2]] == 0:
+                    dTime_h = 0
+                else:
+                    dTime_h = time_map_departure_am[dTime[-2]] # depature time hour                     
+               
+                dTime_m = dTime[-1] # departure time minute
+                                    
+                try:
+                    dTime_special_notice = dTime[-3] # some times may have a special value in index 0
+                except:
+                    pass
+                
+                if local_time_h <= dTime_h and (int(minute) < int(dTime_m)):
+                    departure_times_sb.append(dp)
+               
+                
+        elif PM == True:
+            if 'pm' in dp:
+                remove_pm_from_time = dp[0:-2]
+                dTime = remove_pm_from_time.split(':') # departure time list
+                
+                dTime_h = time_map_departure_pm[dTime[-2]] # depature time hour 
+                dTime_m = dTime[-1] # departure time minute
+                
+                print(dTime_h, dTime_m)
+                
+                try:
+                    dTime_special_notice = dTime[-3] # some times may have a special value in index 0
+                except:
+                    pass
+                     
+                # This needs to be looked at ******************* what is time ism 12
+                if local_time_h <= dTime_h and int(minute) < int(dTime_m):
+                    
+                    departure_times_sb.append(dp)
+                
+       
+       # if int(mh) == int(dTime[0]) and int(minute) < int(dTime[1]):
+            
+            #departure_times_nb.append(dp)
+    return departure_times_sb
+                
+def main():
+    distance_info = [] 
+    document = {}
+    departure_timesNB = []
+    departure_timesSB = []
+    
+                     
+    lat = 40.297000   #float(input("Enter latitude: "))
+    long = -73.988000  #float(input("Enter longitude: "))
+    
+    # get distance info
+    distance_info =  calculateDistance2(lat, long)
+    
+    # get the station id for the closest station
+    station_id = closestStation(distance_info)
+       
+    # query database for document matching the station
+    document = findDocument(station_id)
+        
+    # extract departure times from document
+    departure_timesNB =  getDepartureTimesNB(document) # north bound
+    departure_timesSB =  getDepartureTimesSB(document) # south bound
+    
+    
+    print("Next departure time NB 1: ", departure_timesNB[0])
+    print("Next departure time NB 2: ", departure_timesNB[1])
+    print("Next departure time NB 3: ", departure_timesNB[2])
+    print("Next departure time NB 4: ", departure_timesNB[3])
+    
+    print("Next departure time SB 1: ", departure_timesSB[0])
+    print("Next departure time SB 2: ", departure_timesSB[1])
+    print("Next departure time SB 3: ", departure_timesSB[2])
+    print("Next departure time SB 4: ", departure_timesSB[3])
+   
+    connection.close() # close database connection
+   
+if __name__ == '__main__':
+           main()
+
+```
 ### [LINK - Algorithm and Data Structure Narrative](https://github.com/CodeSenpii/CodeSenpii.github.io/blob/master/Narrative_ADS.docx)
 
 ## Database:
