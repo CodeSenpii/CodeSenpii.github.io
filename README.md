@@ -67,7 +67,7 @@ time_map_local = {'00':0, '01':1, '02':2, '03':3, '04':4, '05':5, '06':6, '07':7
 
 ## Database:
 The database used in this project is a MongoDB NoSQL. A Database managment system application written in python is used to Insert, Update, Delete and Search the database (njtransit).
-# NJTRANSIT DATABASE MANAGMENT SYSTEM
+## NJTRANSIT DATABASE MANAGMENT SYSTEM
 ```
 #------------------------------------------------------------------------------------
 '''
