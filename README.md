@@ -1,4 +1,4 @@
-# Project-1: automatically display NJTRANSIT train departure times
+# Project-1: automatically display NJTRANSIT train departure times.
 ## By: Kieyn Parks
 
 This project is a combination the following:
