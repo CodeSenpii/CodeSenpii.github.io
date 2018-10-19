@@ -3,10 +3,31 @@
 #### Language: Python
 #### Database: MongoDB (NoSQL)
 
+
+### A Brief History:
+
+**The Idea!** 
+
+The Project in the ePortfolio is one I wanted to get done for a long time. The idea is a simple one. I would open the application and get the departure times for the next trains in either direction; this will all happen automatically without any interaction from the user and would be the top use case for the application. 
+
+**How I arrived at this idea?* 
+
+The idea came about as one of necessity. I don’t take the train often so when I do it’s usually a last-minute decision. Using the application provided by the carrier, NJTRANSIT, is slow. The NJTRANSIT application and all other third-party applications require the user to enter departing station and destination station, some would even ask you for the time you want to leave for a more narrowed list of departures. I found the User experience with these applications to be too cumbersome when all I want is information for the next few departure times. 
+
+**A few things to note.**  
+
+- Departure times are all the same every day Monday to Sunday every 6 months.
+- There are two schedules Weekday schedule and Weekend Schedule. 
+- There are only a few transit stations and main terminals. 
+- There are 6 train lines each with unique stops sometimes the stops overlap. 
+
+**______________________________________________________________________________________________________________________________**
+
 This project is a combination the following:
 - Engineering and Design
 - Database
 - Data Structures and Algorithms 
+
 
 ## Project Overview:
 
@@ -21,7 +42,7 @@ Trip planning is a bit more complicated as it requres the user to input some inf
 ## Code Review:
 Below is a vedio of the code review:
 
-[Code Review](https://www.youtube.com/embed/S5SBJUDnSNw)
+## [Code Review](https://www.youtube.com/embed/S5SBJUDnSNw)
 
 
 ## Design & Engineering:
