@@ -3,8 +3,13 @@
 #### Language: Python
 #### Database: MongoDB (NoSQL)
 
+**About the author:**
 
-### A Brief History:
+I had been working for the past 15 years in various technical roles, mostly in the Telecommuncations field as an Engineering tech. Sensing a change in the economy towards computers, software and data, I felt the need to get retraining.  So, in the summer 2016 just before entering Southern New Hampshire University (SNHU) I started brushing up on the C/C++ programming language and having fun while doing it. I first enrolled as a data science undergraduate but quickly transitioned to computer science where I remained for the duration of my studies.  
+
+Studying computer science at SNHU was difficult at times but I persevered. I especially enjoyed the coding class C++, Java, python and the database classes MySQL, MongoDB. 
+
+### A Brief Project History:
 
 **The Idea!** 
 
