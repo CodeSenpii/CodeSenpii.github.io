@@ -7,7 +7,11 @@
 
 I had been working for the past 15 years in various technical roles, mostly in the Telecommuncations field as an Engineering tech. Sensing a change in the economy towards computers, software and data, I felt the need to get retraining.  So, in the summer 2016 just before entering Southern New Hampshire University (SNHU) I started brushing up on the C/C++ programming language and having fun while doing it. I first enrolled as a data science undergraduate but quickly transitioned to computer science where I remained for the duration of my studies.  
 
-Studying computer science at SNHU was difficult at times but I persevered. I especially enjoyed the coding class C++, Java, python and the database classes MySQL, MongoDB. The Java and python classes focused more on applications, object-oriented programming and testing. The C++ class focused on algorithms and data structures. To round off my software engineering skills I have taken classes in Software design and Engineering, Operating systems, Artificial intelligence and Machine learning to name a few. Also I have just recently enrolled in an introductory course for autonomous vehicles from Udacity.  
+Studying computer science at SNHU was difficult at times but I persevered. I especially enjoyed the coding class C++, Java, python and the database classes MySQL, MongoDB. The Java and python classes focused more on applications, object-oriented programming and testing. The C++ class focused on algorithms and data structures. To round off my software engineering skills I have taken classes in Software design and Engineering, Software Collaboration, Operating systems, Artificial intelligence and Machine learning to name a few. Also, I have just recently enrolled in an introductory course for autonomous vehicles from Udacity. My favorite class to date is C++ Algorithms and Data Structures where I implemented search algorithms, sorting algorithms, link-list (singly and doubly), and hash table link-list; it was both a challenging and fun class, requiring patients, perseverance, and lots of troubleshooting which is one of my strengths. 
+
+Another class worth mentioning is a software collaboration class, which was done using egit for the eclipse environment and bitbucket for the repository 
+
+
 
 ### A Brief Project History:
 
