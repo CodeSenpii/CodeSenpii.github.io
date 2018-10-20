@@ -9,7 +9,7 @@ I had been working for the past 15 years in various technical roles, mostly in t
 
 Studying computer science at SNHU was difficult at times but I persevered. I especially enjoyed the coding class C++, Java, python and the database classes MySQL, MongoDB. The Java and python classes focused more on applications, object-oriented programming and testing. The C++ class focused on algorithms and data structures. To round off my software engineering skills I have taken classes in Software design and Engineering, Software Collaboration, Operating systems, Artificial intelligence and Machine learning to name a few. Also, I have just recently enrolled in an introductory course for autonomous vehicles from Udacity. My favorite class to date is C++ Algorithms and Data Structures where I implemented search algorithms, sorting algorithms, link-list (singly and doubly), and hash table link-list; it was both a challenging and fun class, requiring patients, perseverance, and lots of troubleshooting which is one of my strengths. 
 
-Another class worth mentioning is a software collaboration class, which was done using egit for the eclipse environment and bitbucket for the repository 
+Another noteworthy class was in software collaboration. The class was conducted using egit for the eclipse environment and bitbucket for the repository. The workflow used was feature branching. Branching is where the developer clones the remote repository each day, creates a feature branch from the local repository to work on. The Branch is then merged to the local repository only when all work is completed; only is it committed to the remote repository. A code review is done before the commits are merged to the main base code. 
 
 
 
