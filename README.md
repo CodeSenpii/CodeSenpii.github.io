@@ -11,6 +11,43 @@ Studying computer science at SNHU was difficult at times but I persevered. I esp
 
 Another noteworthy class was in software collaboration. The class was conducted using egit for the eclipse environment and bitbucket for the repository. The workflow used was feature branching. Branching is where the developer clones the remote repository each day, creates a feature branch from the local repository to work on. The Branch is then merged to the local repository only when all work is completed; only then is it committed to the remote repository. A code review is done before the commits are merged to the main base code. 
 
+**The Project:**
+
+This project utilizes github as the repository and gitpages to communicate the different stages of the project which is broken up into three parts, data structure and algorithms, engineering and design and databases. 
+
+Data structures that are used in the project are list, tuple, and dictionaries. A list is a collection of ordered items which can be of one data type or a mixture of data types enclosed in square brackets. The list items can be changed or mutated. 
+
+Example: 
+
+MyList = [“string”, “string”, number, number, boolean, object] 
+
+A Tuple is a data structure similar to a list but the items cannot be changed or mutated. The items in a tuple are enclosed in parenthesis. 
+
+Example: 
+
+MyTuple = (“string”, “string”, number, number, boolean, object) 
+
+A dictionary is an associative list or map that contains “key: value” pairs. The data in dictionaries are unordered which means you cannot predict the order they would be displayed in like a list or tuple. Dictionaries can also be edited. 
+
+Example: 
+
+MyDict = {“key” : “value”, “key” : value}  
+
+The Key in a python dictionary must be a string the value however, can be a string, number or boolean type. 
+
+The main data structure used in the program used is a list of tuples: 
+
+Example: 
+
+MyListOfTuples = [ (data), (data), (data)] where (data) is a tuple. 
+
+The Algorithm used to search MyListOfTuples is a linear search. Each tuple is extracted, and the data is checked for a match the search exhaust the entire list. 
+ 
+
+In designing the project, I created a flow chart which visually demonstrate how the code execution works and a use case diagram which shows how the users will interact with the software. 
+
+The database is used to store all the data required for the user application to work. The database is a NoSQL database. I chose mongodb for its robustness, flexibility, and ease of use in the python programming language. The data in the database is represented in json format. 
+
 
 
 ### A Brief Project History:
