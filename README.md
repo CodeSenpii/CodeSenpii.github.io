@@ -1,4 +1,4 @@
-# Project-1: Automatically display NJTRANSIT train departure times.
+# Project-1: Automatically display NJTRANSIT trains departure times.
 #### Author: Kieyn Parks
 #### Language: Python
 #### Database: MongoDB (NoSQL)
